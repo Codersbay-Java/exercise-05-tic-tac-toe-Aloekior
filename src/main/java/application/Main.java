@@ -86,7 +86,7 @@ public class Main {
                 winner = sumCol(); // count col sum
             }
         }
-        return winner; // return 0, 3 or 6
+        return winner; // return 0, BOARD_SIZE * 1 or BOARD_SIZE * 2
     }
 
     public static int sumDiag() {
@@ -102,10 +102,10 @@ public class Main {
             right = right + board[i][count];
             count--;
         }
-        if (left == 3 || right == 3) { // if diag sum = 3, Player 1 wins
-            return 3;
-        } else if (right == 6 || right == 6) { // if diag sum = 6, Player 2 wins
-            return 6;
+        if (left == BOARD_SIZE * 1 || right == BOARD_SIZE * 1) { // if diag sum = 1 * board.length, Player 1 wins
+            return BOARD_SIZE * 1;
+        } else if (right == BOARD_SIZE * 2 || right == BOARD_SIZE * 2) { // if diag sum = 2 * board.length, Player 2 wins
+            return BOARD_SIZE * 2;
         }
         return 0;
     }
@@ -121,10 +121,10 @@ public class Main {
                 }
                 sum = sum + board[i][j];
             }
-            if (sum == 3) { // if row sum = 3, Player 1 wins
-                return 3;
-            } else if (sum == 6) { // if row sum = 6, Player 2 wins
-                return 6;
+            if (sum == BOARD_SIZE * 1) { // if row sum = 3, Player 1 wins
+                return BOARD_SIZE * 1;
+            } else if (sum == BOARD_SIZE * 2) { // if row sum = 6, Player 2 wins
+                return BOARD_SIZE * 2;
             }
         }
         return 0;
@@ -141,19 +141,19 @@ public class Main {
                 }
                 sum = sum + board[i][j];
             }
-            if (sum == 3) { // if col sum = 3, Player 1 wins
-                return 3;
-            } else if (sum == 6) { // if col sum = 6, Player 2 wins
-                return 6;
+            if (sum == BOARD_SIZE * 1) { // if col sum = 3, Player 1 wins
+                return BOARD_SIZE * 1;
+            } else if (sum == BOARD_SIZE * 2) { // if col sum = 6, Player 2 wins
+                return BOARD_SIZE * 2;
             }
         }
         return 0;
     }
 
     public static void conclusion(int winner) {
-        if (winner == 3) {
+        if (winner == BOARD_SIZE * 1) {
             System.out.println("Player 1 wins!");
-        } else if (winner == 6) {
+        } else if (winner == BOARD_SIZE * 2) {
             System.out.println("Player 2 wins!");
         } else {
             System.out.println("The game tied.");
