@@ -7,6 +7,7 @@ public class GameLogic {
     private static Random rand = new Random();
 
     public static void Logic() {
+        System.out.println("---Welcome to TIC TAC TOE---" + "\n");
         int player2Selection = Player.selectPlayer2();
         board.printBoard();
         while (currentRound < (board.boardSize * board.boardSize)) {

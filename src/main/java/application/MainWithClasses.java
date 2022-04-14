@@ -10,9 +10,6 @@ public class MainWithClasses {
     public static int winner = 0;
 
     public static void main(String[] args) {
-
-        System.out.println("---Welcome to TIC TAC TOE---" + "\n");
-
         GameLogic.Logic();
     }
 }
