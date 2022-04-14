@@ -1,8 +1,11 @@
 package application;
 
-import static application.MainWithClasses.*;
+import java.util.Scanner;
+import static application.GameLogic.*;
+
 
 public class Player {
+    public static Scanner scanner = new Scanner(System.in);
 
     public static int selectPlayer2() {
         System.out.println("Do you want to play against another player? (yes / no)");

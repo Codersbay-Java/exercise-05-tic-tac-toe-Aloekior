@@ -1,15 +1,20 @@
 package application;
 
 import java.util.Random;
-import static application.MainWithClasses.*;
 
 public class GameLogic {
     private static Random rand = new Random();
+    public static Board board = new Board();
+    public static int currentPlayer = 1;
+    public static int winner = 0;
 
-    public static void Logic() {
+    public static void logic() {
         System.out.println("---Welcome to TIC TAC TOE---" + "\n");
+        int currentRound = 0;
         int player2Selection = Player.selectPlayer2();
+
         board.printBoard();
+
         while (currentRound < (board.boardSize * board.boardSize)) {
             if (player2Selection == 0) {
                 Player.playerEntry();
