@@ -6,8 +6,9 @@ import static application.MainWithClasses.*;
 public class GameLogic {
     private static Random rand = new Random();
 
-    public static void Logic(int player2Selection) {
-        boolean moveComplete;
+    public static void Logic() {
+        int player2Selection = Player.selectPlayer2();
+        board.printBoard();
         while (currentRound < (board.boardSize * board.boardSize)) {
             if (player2Selection == 0) {
                 Player.playerEntry();

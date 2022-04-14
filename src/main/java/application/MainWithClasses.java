@@ -12,9 +12,7 @@ public class MainWithClasses {
     public static void main(String[] args) {
 
         System.out.println("---Welcome to TIC TAC TOE---" + "\n");
-        int player2Selection = Player.selectPlayer2();
-        board.printBoard();
 
-        GameLogic.Logic(player2Selection);
+        GameLogic.Logic();
     }
 }
