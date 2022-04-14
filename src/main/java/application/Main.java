@@ -8,9 +8,9 @@ public class Main {
     public static int currentPlayer = 1;
     public static int currentRound = 0;
     public static Scanner scanner = new Scanner(System.in);
+    public static int winner = 0;
 
     public static void main(String[] args) {
-        int winner = 0;
 
         System.out.println("---Welcome to TIC TAC TOE---" + "\n");
         printBoard();
@@ -19,14 +19,14 @@ public class Main {
             printBoard();
         }
         while (currentRound < 9) { // check for winner on every round, quit after 9. round
-            winner = winCheck();
-            if (winner > 0) { // winCheck will return 3 or 6 if there is a winner
+            winCheck();
+            if (winner > 0) { // winCheck will return BOARD_SIZE or BOARD_SIZE * 2 if there is a winner
                 break;
             }
             playerEntry();
             printBoard();
         }
-        winner = winCheck();
+        winCheck();
         conclusion(winner);
     }
 
@@ -60,11 +60,11 @@ public class Main {
             row = scanner.nextInt();
         }
         while (col < 1 || col > BOARD_SIZE) { // repeat until Player enters valid col number
-            System.out.print("Please enter a coloumn (between 1 and " + BOARD_SIZE + "): ");
+            System.out.print("Please enter a column (between 1 and " + BOARD_SIZE + "): ");
             col = scanner.nextInt();
         }
-        if (board[row - 1][col - 1] == 0) { // check if selected cell is free
-            board[row - 1][col - 1] = currentPlayer; // write player to cell
+        if (board[row-1][col-1] == 0) { // check if selected cell is free
+            board[row-1][col-1] = currentPlayer; // write player to cell
             if (currentPlayer == 1) { // if current player was 1
                 currentPlayer = 2; // set next player to 2
             } else {
@@ -72,13 +72,12 @@ public class Main {
             }
             currentRound++;
         } else {
-            System.out.println("Cell already occupied by player " + board[col - 1][row - 1]);
+            System.out.println("Cell already occupied by player " + board[col-1][row-1]);
         }
         System.out.println();
     }
 
-    public static int winCheck() {
-        int winner = 0;
+    public static void winCheck() {
         winner = sumDiag(); // count diag sum
         if (winner == 0) { // if diag sum returns 0
             winner = sumRow(); // count row sum
@@ -86,25 +85,24 @@ public class Main {
                 winner = sumCol(); // count col sum
             }
         }
-        return winner; // return 0, BOARD_SIZE * 1 or BOARD_SIZE * 2
     }
 
     public static int sumDiag() {
         int left = 0, right = 0, count = board.length - 1;
         for (int i = 0; i < board.length; i++) {
             if (board[i][i] == 0) { // if cell is 0, set left diag sum to -10 to avoid 1 + 2 = 3
-                left = -10;
+                left = Integer.MIN_VALUE;
             }
             if (board[i][count] == 0) { // if cell is 0, set right diag sum to -10 to avoid 1 + 2 = 3
-                right = -10;
+                right = Integer.MIN_VALUE;
             }
             left = left + board[i][i];
             right = right + board[i][count];
             count--;
         }
-        if (left == BOARD_SIZE * 1 || right == BOARD_SIZE * 1) { // if diag sum = 1 * board.length, Player 1 wins
-            return BOARD_SIZE * 1;
-        } else if (right == BOARD_SIZE * 2 || right == BOARD_SIZE * 2) { // if diag sum = 2 * board.length, Player 2 wins
+        if (left == BOARD_SIZE || right == BOARD_SIZE) { // if diag sum = 1 * board.length, Player 1 wins
+            return BOARD_SIZE;
+        } else if (left == BOARD_SIZE * 2 || right == BOARD_SIZE * 2) { // if diag sum = 2 * board.length, Player 2 wins
             return BOARD_SIZE * 2;
         }
         return 0;
@@ -121,8 +119,8 @@ public class Main {
                 }
                 sum = sum + board[i][j];
             }
-            if (sum == BOARD_SIZE * 1) { // if row sum = 3, Player 1 wins
-                return BOARD_SIZE * 1;
+            if (sum == BOARD_SIZE) { // if row sum = 3, Player 1 wins
+                return BOARD_SIZE;
             } else if (sum == BOARD_SIZE * 2) { // if row sum = 6, Player 2 wins
                 return BOARD_SIZE * 2;
             }
@@ -141,8 +139,8 @@ public class Main {
                 }
                 sum = sum + board[i][j];
             }
-            if (sum == BOARD_SIZE * 1) { // if col sum = 3, Player 1 wins
-                return BOARD_SIZE * 1;
+            if (sum == BOARD_SIZE) { // if col sum = 3, Player 1 wins
+                return BOARD_SIZE;
             } else if (sum == BOARD_SIZE * 2) { // if col sum = 6, Player 2 wins
                 return BOARD_SIZE * 2;
             }
@@ -151,7 +149,7 @@ public class Main {
     }
 
     public static void conclusion(int winner) {
-        if (winner == BOARD_SIZE * 1) {
+        if (winner == BOARD_SIZE) {
             System.out.println("Player 1 wins!");
         } else if (winner == BOARD_SIZE * 2) {
             System.out.println("Player 2 wins!");
